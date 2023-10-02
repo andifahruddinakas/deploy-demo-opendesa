@@ -1,0 +1,45 @@
+name: Deploy demosid.opendesa.id
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Deployment Website demosid.opendesa.id
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: SSH Remote
+        uses: fifsky/ssh-action@master
+        with:
+          host: demosid.opendesa.id
+          user: ${{ secrets.SSH_USER_DEMOSID }}
+          pass: ${{ secrets.SSH_PASS_DEMOSID }}
+          port: 2244
+          command: |
+            cd /home/demosid.opendesa.id/public_html
+
+            # Restore to previous commit (optional)
+            git restore .
+
+            # Checkout to the 'umum' branch
+            git checkout umum
+
+            # Fetch tags from remote repository
+            git fetch --tags
+
+            # Get the latest tag
+            latest_tag=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
+
+            # Check if a tag was found
+            if [ -n "$latest_tag" ]; then
+              # Checkout to the latest tag
+              git checkout "$latest_tag"
+            else
+              echo "No latest tag found, skipping deployment."
+            fi

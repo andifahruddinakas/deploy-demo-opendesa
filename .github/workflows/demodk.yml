@@ -1,0 +1,54 @@
+name: Deploy demodk.opendesa.id
+on:
+  push:
+    branches:
+      - masteruuu
+
+jobs:
+  build:
+    name: Deployment Website demodk.opendesa.id
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: SSH Remote
+        uses: fifsky/ssh-action@master
+        with:
+          host: demodk.opendesa.id
+          user: ${{ secrets.SSH_USER_DEMODK }}
+          pass: ${{ secrets.SSH_PASS_DEMODK }}
+          port: 2244
+          command: |
+            cd /home/demodk.opendesa.id/public_html
+
+            # Restore to previous commit (optional)
+            git restore .
+
+            # Checkout to the 'master' branch
+            git checkout master
+
+            # Fetch tags from remote repository
+            git fetch --tags
+
+            # Get the latest tag
+            latest_tag=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
+
+            # Check if a tag was found
+            if [ -n "$latest_tag" ]; then
+              # Checkout to the latest tag
+              git checkout "$latest_tag"
+            else
+              echo "No latest tag found, skipping deployment."
+            fi
+
+      - name: Install Composer Dependencies
+        run: composer install --no-dev
+
+      - name: Run Migrations
+        run: php artisan migrate
+
+      - name: Clear Cache
+        run: php artisan optimize:clear

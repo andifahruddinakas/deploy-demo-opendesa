@@ -1,0 +1,31 @@
+name: Deploy beta.opendesa.id
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Deployment Website beta.opendesa.id
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: SSH Remote
+        uses: fifsky/ssh-action@master
+        with:
+          host: beta.opendesa.id
+          user: ${{ secrets.SSH_USER_BETA }}
+          pass: ${{ secrets.SSH_PASS_BETA }}
+          port: 2244
+          command: |
+            cd /home/beta.opendesa.id/public_html
+
+            # Restore to previous commit (optional)
+            git restore .
+
+            # Checkout to the 'rilis-dev' branch
+            git pull origin rilis-dev

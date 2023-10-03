@@ -2,7 +2,7 @@ name: Deploy berputar.opendesa.id
 on:
   push:
     branches:
-      - main
+      - mainll
 
 jobs:
   build:

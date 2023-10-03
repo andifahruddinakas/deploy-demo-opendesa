@@ -14,18 +14,12 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: SSH Remote
-        uses: fifsky/ssh-action@master
+      - name: Set up SSH Key
+        uses: webfactory/ssh-agent@v0.5
         with:
-          host: beta.opendesa.id
-          user: ${{ secrets.SSH_USER_BETA }}
-          pass: ${{ secrets.SSH_PASS_BETA }}
-          port: 2244
-          command: |
-            cd /home/beta.opendesa.id/public_html
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-            # Restore to previous commit (optional)
-            git restore .
+      - name: SSH Remote
+        run: |
+          ssh -o StrictHostKeyChecking=no -p 2244 ${{ secrets.SSH_USER_BETA }}@beta.opendesa.id 'cd /home/beta.opendesa.id/public_html && git restore . && git pull origin rilis-dev'
 
-            # Checkout to the 'rilis-dev' branch
-            git pull origin rilis-dev

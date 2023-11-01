@@ -2,7 +2,7 @@ name: Deploy demosid.opendesa.id
 on:
   push:
     branches:
-      - mainll
+      - main
 
 jobs:
   build:

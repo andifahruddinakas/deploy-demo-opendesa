@@ -6,4 +6,4 @@ Website Demo : <br>
 [x] demosid.opendesa.id <br>
 [ ] demodk.opendesa.id <br>
 
-Rilis 01 Februari 2024
+Rilis 01-04-2024

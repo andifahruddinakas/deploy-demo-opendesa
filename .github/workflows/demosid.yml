@@ -1,7 +1,7 @@
 name: Deploy berputar.opendesa.id
 on:
   schedule:
-    - cron: '*/1 * * * *'  # Menjadwalkan setiap 1 menit
+    - cron: '0 */6 * * *'  # Jadwalkan setiap 6 jam
 
 jobs:
   build:

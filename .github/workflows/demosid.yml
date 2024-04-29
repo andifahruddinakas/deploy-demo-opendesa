@@ -1,8 +1,7 @@
-name: Deploy demosid.opendesa.id
+name: Deploy berputar.opendesa.id
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '*/1 * * * *'  # Menjadwalkan setiap 1 menit
 
 jobs:
   build:

@@ -1,14 +1,14 @@
 name: Deploy berputar.opendesa.id
 on:
   schedule:
-    - cron: '*/1 * * * *'  # Menjadwalkan setiap 1 menit
-    
+    - cron: '*/1 * * * *'  # Jadwalkan setiap 1 menit
+
 jobs:
   build:
-    name: Deployment Website berputar.opendesa.id
+    name: Penyimpanan Situs Web berputar.opendesa.id
     runs-on: ubuntu-latest
     steps:
-      - name: Check Out Code
+      - name: Periksa Kode
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
@@ -23,22 +23,22 @@ jobs:
           command: |
             cd /home/berputar.opendesa.id/public_html
 
-            # Restore to previous commit (optional)
-            git restore .
+            # Kembalikan ke commit terbaru
+            git reset --hard HEAD
 
-            # Checkout to the 'main' branch
-            git checkout main
+            # Tarik perubahan terbaru dari repositori
+            git pull
 
-            # Fetch tags from remote repository
+            # Ambil tag terbaru dari repositori jarak jauh
             git fetch --tags
 
-            # Get the latest tag
-            latest_tag=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
+            # Dapatkan tag terbaru
+            latest_tag=$(git describe --tags --abbrev=0)
 
-            # Check if a tag was found
+            # Periksa apakah tag ditemukan
             if [ -n "$latest_tag" ]; then
-              # Checkout to the latest tag
+              # Checkout ke tag terbaru
               git checkout "$latest_tag"
             else
-              echo "No latest tag found, skipping deployment."
+              echo "Tidak ada tag terbaru ditemukan, lewati proses deployment."
             fi

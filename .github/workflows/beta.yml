@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - akas
+  schedule:
+    - cron: '0 */6 * * *'  # Jadwalkan setiap 6 jam
 
 jobs:
   build:

@@ -21,7 +21,7 @@ jobs:
           user: ${{ secrets.SSH_USER_BETA }}
           pass: ${{ secrets.SSH_PASS_BETA }}
           port: 2244
-          script: |
+          command: |
             cd /home/beta.opendesa.id/public_html
 
             # Restore to the state of the remote branch

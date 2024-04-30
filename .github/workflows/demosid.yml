@@ -22,7 +22,7 @@ jobs:
           host: demosid.opendesa.id
           user: ${{ secrets.SSH_USER_DEMOSID }}
           pass: ${{ secrets.SSH_PASS_DEMOSID }}
-          port: 2244
+          port: ${{ secrets.SSH_PORT }}
           command: |
             cd /home/demosid.opendesa.id/public_html
 

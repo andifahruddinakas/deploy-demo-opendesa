@@ -15,10 +15,10 @@ jobs:
           fetch-depth: 1
 
       - name: SSH Remote
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
         with:
           host: beta.opendesa.id
-          username: ${{ secrets.SSH_USER_BETA }}
+          user: ${{ secrets.SSH_USER_BETA }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2244
           script: |

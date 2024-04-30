@@ -11,7 +11,7 @@ Website Demo : <br>
   - [x] demosid.opendesa.id <br>
   - [x] devumum.opendesa.id <br>
 
-- [x] OpenDK <br>
+- [ ] OpenDK <br>
   - [ ] demodk.opendesa.id <br>
 
 

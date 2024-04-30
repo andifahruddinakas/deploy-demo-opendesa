@@ -29,4 +29,4 @@ jobs:
             git reset --hard origin/bug-fix
 
             # Run PHP script to restore database
-            php index.php job restore 2404
+            php index.php job restore 2401

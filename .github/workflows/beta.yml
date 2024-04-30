@@ -14,14 +14,8 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Git Checkout if not on bug-fix branch
-        if: ${{ github.ref != 'refs/heads/bug-fix' }}
-        run: |
-          if ! git show-ref --verify --quiet "refs/heads/bug-fix"; then
-            git checkout -b bug-fix
-          else
-            git checkout bug-fix
-          fi
+      - name: Git Checkout
+        run: git checkout -f bug-fix
 
       - name: SSH Remote
         uses: fifsky/ssh-action@master
@@ -33,7 +27,6 @@ jobs:
           script: |
             cd /home/beta.opendesa.id/public_html
 
-            # Restore to previous commit (optional)
-            git reset --hard HEAD
-            git clean -df
-            git pull origin bug-fix
+            # Restore to the state of the remote branch
+            git fetch origin bug-fix
+            git reset --hard origin/bug-fix

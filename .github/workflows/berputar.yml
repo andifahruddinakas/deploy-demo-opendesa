@@ -45,3 +45,6 @@ jobs:
             else
               echo "Tidak ada tag terbaru ditemukan, lewati proses deployment."
             fi
+
+            # Run PHP script to restore database
+            php index.php job restore 2402

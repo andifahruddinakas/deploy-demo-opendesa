@@ -1,4 +1,4 @@
-name: Deploy berputar.opendesa.id
+name: Deploy demosid.opendesa.id
 on:
   push:
     branches:
@@ -22,7 +22,7 @@ jobs:
           host: demosid.opendesa.id
           user: ${{ secrets.SSH_USER_DEMOSID }}
           pass: ${{ secrets.SSH_PASS_DEMOSID }}
-          port: 2244
+          port: ${{ secrets.SSH_PORT }}
           command: |
             cd /home/demosid.opendesa.id/public_html
 
@@ -45,3 +45,6 @@ jobs:
             else
               echo "No latest tag found, skipping deployment."
             fi
+
+            # Run PHP script to restore database
+            php index.php job restore

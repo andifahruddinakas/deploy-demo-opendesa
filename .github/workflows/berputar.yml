@@ -22,7 +22,7 @@ jobs:
           host: berputar.opendesa.id
           user: ${{ secrets.SSH_USER_BERPUTAR }}
           pass: ${{ secrets.SSH_PASS_BERPUTAR }}
-          port: 2244
+          port: ${{ secrets.SSH_PORT }}
           command: |
             cd /home/berputar.opendesa.id/public_html
 
@@ -45,3 +45,6 @@ jobs:
             else
               echo "Tidak ada tag terbaru ditemukan, lewati proses deployment."
             fi
+
+            # Run PHP script to restore database
+            php index.php job restore 2402

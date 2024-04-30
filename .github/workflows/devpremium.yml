@@ -1,4 +1,4 @@
-name: Deploy beta.opendesa.id
+name: Deploy devpremium.opendesa.id
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Deployment Website beta.opendesa.id
+    name: Deployment Website devpremium.opendesa.id
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Code
@@ -19,16 +19,16 @@ jobs:
       - name: SSH Remote
         uses: fifsky/ssh-action@master
         with:
-          host: beta.opendesa.id
-          user: ${{ secrets.SSH_USER_BETA }}
-          pass: ${{ secrets.SSH_PASS_BETA }}
+          host: devpremium.opendesa.id
+          user: ${{ secrets.SSH_USER_DEVPREMIUM }}
+          pass: ${{ secrets.SSH_PASS_DEVPREMIUM }}
           port: ${{ secrets.SSH_PORT }}
           command: |
-            cd /home/beta.opendesa.id/public_html
+            cd /home/devpremium.opendesa.id/public_html
 
             # Restore to the state of the remote branch
-            git fetch origin bug-fix
-            git reset --hard origin/bug-fix
+            git fetch origin rilis-dev
+            git reset --hard origin/rilis-dev
 
-            # Run PHP script to restore database
+            # Run PHP script to restore database 
             php index.php job restore 2401

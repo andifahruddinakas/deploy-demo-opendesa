@@ -28,5 +28,5 @@ jobs:
             git fetch origin bug-fix
             git reset --hard origin/bug-fix
 
-      - name: Restore Database
-        run: php index.php job restore 2401
+            # Run PHP script to restore database
+            php index.php job restore 2404

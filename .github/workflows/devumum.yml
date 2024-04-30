@@ -2,7 +2,7 @@ name: Deploy devumum.opendesa.id
 on:
   push:
     branches:
-      - akas
+      - main
   schedule:
     - cron: '0 */6 * * *'  # Jadwalkan setiap 6 jam
 

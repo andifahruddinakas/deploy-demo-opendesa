@@ -15,17 +15,16 @@ jobs:
           fetch-depth: 1
 
       - name: SSH Remote
-        uses: fifsky/ssh-action@master
+        uses: appleboy/ssh-action@master
         with:
           host: beta.opendesa.id
-          user: ${{ secrets.SSH_USER_BETA }}
-          pass: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.SSH_USER_BETA }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 2244
-          command: |
+          script: |
             cd /home/beta.opendesa.id/public_html
 
             # Restore to previous commit (optional)
-            git restore .
-
-            # Checkout to the 'rilis-dev' branch
+            git reset --hard HEAD
+            git clean -df
             git pull origin rilis-dev

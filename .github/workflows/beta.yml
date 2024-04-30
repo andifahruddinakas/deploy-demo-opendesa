@@ -2,7 +2,7 @@ name: Deploy beta.opendesa.id
 on:
   push:
     branches:
-      - mainkk
+      - akas
 
 jobs:
   build:

@@ -14,6 +14,10 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Git Checkout if not on bug-fix branch
+        if: ${{ github.ref != 'refs/heads/bug-fix' }}
+        run: git checkout bug-fix
+
       - name: SSH Remote
         uses: fifsky/ssh-action@master
         with:
@@ -27,4 +31,4 @@ jobs:
             # Restore to previous commit (optional)
             git reset --hard HEAD
             git clean -df
-            git pull origin rilis-dev
+            git pull origin bug-fix

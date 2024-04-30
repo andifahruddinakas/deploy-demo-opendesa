@@ -22,7 +22,7 @@ jobs:
           host: beta.opendesa.id
           user: ${{ secrets.SSH_USER_BETA }}
           pass: ${{ secrets.SSH_PASS_BETA }}
-          port: 2244
+          port: ${{ secrets.SSH_PORT }}
           command: |
             cd /home/beta.opendesa.id/public_html
 

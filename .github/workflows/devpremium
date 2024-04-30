@@ -1,0 +1,34 @@
+name: Deploy devpremium.opendesa.id
+on:
+  push:
+    branches:
+      - akas
+  schedule:
+    - cron: '0 */6 * * *'  # Jadwalkan setiap 6 jam
+
+jobs:
+  build:
+    name: Deployment Website devpremium.opendesa.id
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: SSH Remote
+        uses: fifsky/ssh-action@master
+        with:
+          host: devpremium.opendesa.id
+          user: ${{ secrets.SSH_USER_DEVPREMIUM }}
+          pass: ${{ secrets.SSH_PASS_DEVPREMIUM }}
+          port: ${{ secrets.SSH_PORT }}
+          command: |
+            cd /home/devpremium.opendesa.id/public_html
+
+            # Restore to the state of the remote branch
+            git fetch origin rilis-dev
+            git reset --hard origin/rilis-dev
+
+            # Run PHP script to restore database
+            php index.php job restore 2401

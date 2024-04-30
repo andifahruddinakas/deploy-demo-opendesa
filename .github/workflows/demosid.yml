@@ -47,4 +47,4 @@ jobs:
             fi
 
             # Run PHP script to restore database
-            php index.php job/restore
+            php index.php job restore

@@ -26,25 +26,9 @@ jobs:
           command: |
             cd /home/berputar.opendesa.id/public_html
 
-            # Kembalikan ke commit terbaru
-            git reset --hard HEAD
-
-            # Tarik perubahan terbaru dari repositori
-            git pull
-
-            # Ambil tag terbaru dari repositori jarak jauh
-            git fetch --tags
-
-            # Dapatkan tag terbaru
-            latest_tag=$(git describe --tags --abbrev=0)
-
-            # Periksa apakah tag ditemukan
-            if [ -n "$latest_tag" ]; then
-              # Checkout ke tag terbaru
-              git checkout "$latest_tag"
-            else
-              echo "Tidak ada tag terbaru ditemukan, lewati proses deployment."
-            fi
+            # Restore to the state of the remote branch
+            git fetch origin master
+            git reset --hard origin/master
 
             # Run PHP script to restore database
             php index.php job restore 2402

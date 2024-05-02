@@ -26,25 +26,9 @@ jobs:
           command: |
             cd /home/demosid.opendesa.id/public_html
 
-            # Restore to previous commit (optional)
-            git restore .
-
-            # Checkout to the 'umum' branch
-            git checkout umum
-
-            # Fetch tags from remote repository
-            git fetch --tags
-
-            # Get the latest tag
-            latest_tag=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
-
-            # Check if a tag was found
-            if [ -n "$latest_tag" ]; then
-              # Checkout to the latest tag
-              git checkout "$latest_tag"
-            else
-              echo "No latest tag found, skipping deployment."
-            fi
+            # Restore to the state of the remote branch
+            git fetch origin umum
+            git reset --hard origin/umum
 
             # Run PHP script to restore database
             php index.php job restore

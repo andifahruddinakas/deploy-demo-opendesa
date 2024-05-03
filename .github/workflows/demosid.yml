@@ -29,6 +29,7 @@ jobs:
             # Restore to the state of the remote branch
             git fetch origin umum
             git reset --hard origin/umum
+            git pull origin umum
 
             # Run PHP script to restore database
             php index.php job restore

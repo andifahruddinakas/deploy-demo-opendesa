@@ -29,6 +29,7 @@ jobs:
             # Restore to the state of the remote branch
             git fetch origin rilis-dev
             git reset --hard origin/rilis-dev
+            git pull origin rilis-dev
 
             # Run PHP script to restore database 
             php index.php job restore 2401

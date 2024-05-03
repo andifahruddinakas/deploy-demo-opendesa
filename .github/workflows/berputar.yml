@@ -29,6 +29,7 @@ jobs:
             # Restore to the state of the remote branch
             git fetch origin master
             git reset --hard origin/master
+            git pull origin master
 
             # Run PHP script to restore database
             php index.php job restore 2402

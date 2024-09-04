@@ -32,4 +32,4 @@ jobs:
             git pull origin bug-fix
 
             # Run PHP script to restore database
-            php index.php job restore 2401
+            php index.php job restore akses

@@ -7,7 +7,7 @@ Website Demo : <br>
   - [ ] devpremium.opendesa.id <br>
   - [x] beta.opendesa.id <br>
 
-- [x] OpenSID Umum <br>
+- [ ] OpenSID Umum <br>
   - [ ] demosid.opendesa.id <br>
   - [ ] devumum.opendesa.id <br>
 
